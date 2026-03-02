@@ -1,12 +1,15 @@
-FROM node:14-alpine AS build
+FROM node:18-alpine AS build
 LABEL maintainer="Stille <stille@ioiox.com>"
 
-ENV VERSION 2.0
+ENV VERSION=2.0
 
 WORKDIR /app
+RUN corepack enable && corepack prepare pnpm@8.15.9 --activate
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY . /app
-RUN npm install
-RUN npm run build
+RUN pnpm dlx update-browserslist-db@latest latest
+RUN pnpm run build
 
 FROM nginx:1.27-alpine
 COPY --from=build /app/dist /usr/share/nginx/html
