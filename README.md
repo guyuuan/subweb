@@ -55,6 +55,32 @@ Vercel 部署请切换至 vercel 分支查看。
 ### subweb + subconverter + myurls 合并进阶版
 详情查看 [stilleshan/sub](https://github.com/stilleshan/dockerfiles/tree/main/sub)
 
+## 镜像发布（本仓库）
+本项目已内置 GitHub Actions 自动发布（文件：`.github/workflows/docker-build-release.yml`）。
+
+### 发布方式
+1. `git tag v2.0.1 && git push origin v2.0.1`
+2. 或在 GitHub Actions 手动触发 `docker-build-release`，输入 `release_tag`（例如 `2.0.1`）
+
+### 发布目标
+- 默认发布到 GHCR：`ghcr.io/<github-owner>/subweb:<tag>`
+- 若配置了 Docker Hub secrets，则额外发布到 Docker Hub：`docker.io/<dockerhub-username>/subweb:<tag>`
+
+### 需要的 GitHub Secrets
+- `DOCKERHUB_USERNAME`（可选）
+- `DOCKERHUB_TOKEN`（可选，建议使用 Access Token）
+
+### 本地手动发布示例（Docker Hub）
+```shell
+docker buildx create --use --name subweb-builder || docker buildx use subweb-builder
+docker login -u <dockerhub-username>
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  -t <dockerhub-username>/subweb:2.0.1 \
+  -t <dockerhub-username>/subweb:latest \
+  --push .
+```
+
 ## 链接
 - [stilleshan/sub](https://github.com/stilleshan/dockerfiles/tree/main/sub)
 - [stilleshan/subweb](https://github.com/stilleshan/subweb)
