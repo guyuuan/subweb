@@ -2,7 +2,7 @@ window.config = {
   // 网站标题
   siteName: 'Subconverter Web',
   // API 地址
-  apiUrl: 'http://127.0.0.1:25500',
+  apiUrl: 'https://sub.guyuuan.com:23231',
   // 短域名服务地址
   shortUrl: 'https://s.ops.ci',
   // 首页菜单
@@ -20,6 +20,10 @@ window.config = {
   ],
   // 远程配置地址,可以自行按照格式添加。
   remoteConfigOptions: [
+    {
+      value: 'https://cdn.jsdelivr.net/gh/guyuuan/ACL4SSR@refs/heads/master/Clash/config/ACL4SSR_Online_All_In_One.ini',
+      text: 'ACL4SSR Online AIO',
+    },
     {
       value: 'https://cdn.jsdelivr.net/gh/guyuuan/ACL4SSR@master/Clash/config/ACL4SSR_Online.ini',
       text: 'ACL4SSR Online',
